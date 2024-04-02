@@ -48,7 +48,14 @@ def v1_usa_his_cities_get(city_id=None):
         )
         answer, is_ok, status = send_rest('v1/execute?view=1', 'PUT', params=st, token_user=token_admin)
     answer = json.loads(answer)
+    min_date = '2100-01-01'
+    max_date = '1900-01-01'
     for data in answer:
         city_id = data['0']
-        result.append({'city_id': city_id, 'date': data['1'].split('T')[0], 'value': data['2'], 'metric': data['3']})
-    return {"metrics": metrics, "city_count": len(cities), "cities": cities, "values": result}
+        date = data['1'].split('T')[0]
+        min_date = min(min_date, date)
+        max_date = max(max_date, date)
+        result.append({'city_id': city_id, 'date': date, 'value': data['2'], 'metric': data['3']})
+    return {"cities_count": len(cities), "metrics_count": len(metrics), "values_count": len(result),
+            "min_date": min_date, "max_date": max_date,
+            "metrics": metrics, "cities": cities, "values": result}
