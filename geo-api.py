@@ -44,4 +44,3 @@ if __name__ == "__main__":
     uvicorn.run(app, host=config.OWN_HOST, port=config.OWN_PORT,
                 ssl_keyfile=common.ssl_keyfile,
                 ssl_certfile=common.ssl_certfile)
-
