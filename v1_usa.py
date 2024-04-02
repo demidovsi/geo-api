@@ -50,5 +50,5 @@ def v1_usa_his_cities_get(city_id=None):
     answer = json.loads(answer)
     for data in answer:
         city_id = data['0']
-        result.append({'city_id': city_id, 'date': data['1'], 'value': data['2'], 'metric': data['3']})
+        result.append({'city_id': city_id, 'date': data['1'].split('T')[0], 'value': data['2'], 'metric': data['3']})
     return {"metrics": metrics, "city_count": len(cities), "cities": cities, "values": result}
