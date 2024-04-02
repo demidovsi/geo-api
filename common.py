@@ -5,6 +5,8 @@ import json
 import base64
 
 app_lang = 'en'
+ssl_keyfile = None
+ssl_certfile = None
 
 
 def decode(key, enc):

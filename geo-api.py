@@ -4,6 +4,7 @@ import uvicorn
 import json
 import v1_usa
 import config
+import common
 
 
 def create_app() -> FastAPI:
@@ -27,6 +28,7 @@ app.include_router(v1_usa.sub_v1_usa)
 version = '1.0.1'
 version_date = '2024-04-01'
 
+
 @app.get('/')
 def index():
     ans = dict()
@@ -39,5 +41,7 @@ def index():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host=config.OWN_HOST, port=config.OWN_PORT)
+    uvicorn.run(app, host=config.OWN_HOST, port=config.OWN_PORT,
+                ssl_keyfile=common.ssl_keyfile,
+                ssl_certfile=common.ssl_certfile)
 
