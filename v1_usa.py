@@ -35,8 +35,11 @@ def v1_usa_his_cities_get(city_id=None):
         for data in answer_cities:
             st_id = st_id + ', ' if st_id else st_id
             st_id += str(data['id'])
-            cities.append({"city_id": data['id'], "city_name": data["sh_name"], "country_name": data['name_country'],
-                           "population": data['population']})
+            param = {"city_id": data['id'], "city_name": data["sh_name"], "country_name": data['name_country'],
+                     "population": data['population']}
+            if data['name_province']:
+                param['province_name'] = data['name_province']
+            cities.append(param)
         txt, is_ok, token_admin, lang_admin = common.login_superadmin()
         st = "select *, 'life_index' as param_name from {schema}.his_cities_life_index " \
              "where cities_id in ({st_id})" \
