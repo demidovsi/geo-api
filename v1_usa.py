@@ -54,11 +54,11 @@ def v1_usa_his_cities_get(city_id=None):
     min_date = '2100-01-01'
     max_date = '1900-01-01'
     for data in answer:
-        city_id = data['0']
-        date = data['1'].split('T')[0]
+        city_id = data['cities_id']
+        date = data['dt'].split('T')[0]
         min_date = min(min_date, date)
         max_date = max(max_date, date)
-        result.append({'city_id': city_id, 'date': date, 'value': data['2'], 'metric': data['3']})
+        result.append({'city_id': city_id, 'date': date, 'value': data['value'], 'metric': data['param_name']})
     return {"cities_count": len(cities), "metrics_count": len(metrics), "values_count": len(result),
             "min_date": min_date, "max_date": max_date,
             "metrics": metrics, "cities": cities, "values": result}
